@@ -17,22 +17,47 @@ impl AboutChlorium {
 }
 
 impl AboutChlorium {
-	pub fn draw_content(&self, ui: &mut egui::Ui) {
+	fn draw_content(&self, ui: &mut egui::Ui) {
 		ui.vertical_centered(|ui| {
-			ui.heading("Chlorium");
+			ui.heading("+ chlorium +");
 		});
 
 		ui.separator();
 
 		ui.label(
-		"Chlorium is a tracker-ish daw made mostly out of boredom.\
-			This is not a serious project, like at all, so dont expect anything good"
+			"Chlorium is a very simple tracker-ish DAW (Digital Audio Workstation) \
+				built fully in rust with the help of egui."
 		);
 
 		ui.add_space(LABEL_SPACING);
 
 		ui.label(
-			"This is a solo project developed by @sillidev - 'Max' on github"
+			"Since I started using the 'Renoise' tracker, \
+			I've been really interested in trackers, and was inspired to try to \
+			build my own. Trackers being (in concept) relatively simple than other \
+			types of DAWs, I decided to start making Chlorium."
+
+		);
+
+		ui.add_space(LABEL_SPACING);
+
+		ui.label(
+			"Don't expect anything good or serious... this started mostly out of \
+			boredom."
+		);
+
+		ui.add_space(LABEL_SPACING);
+
+		ui.heading("Links");
+		Self::links(ui);
+	}
+
+	fn links(ui: &mut egui::Ui) {
+		use egui::special_emojis::GITHUB;
+
+		ui.hyperlink_to(
+			format!("Github - {GITHUB} github.com/sillidevv/chlorium-daw"),
+			"https://github.com/sillidevv/chlorium-daw",
 		);
 	}
 
@@ -42,6 +67,7 @@ impl AboutChlorium {
 		}
 
 		egui::Window::new("About Chlorium")
+			.default_width(600.0)
 			.show(ctx, |ui| {
 				self.draw_content(ui);
 			});
