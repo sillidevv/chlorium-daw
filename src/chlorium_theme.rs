@@ -73,6 +73,7 @@ fn build_style() -> Style {
 	v.window_fill = MOCHA.base;
 	v.panel_fill = color_palette::GRAY_BG_1;
 	v.widgets.noninteractive.bg_fill = MOCHA.surface2;
+	v.window_fill = color_palette::GRAY_BG_2;
 	v.widgets.noninteractive.bg_stroke = egui::Stroke::new(
 		1.0,
 		color_palette::GRAY_INTERACTIVE_1
