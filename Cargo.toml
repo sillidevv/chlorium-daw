@@ -1,5 +1,5 @@
 [package]
-name = "eframe_template"
+name = "chlorium-daw"
 version = "0.1.0"
 authors = ["Emil Ernerfeldt <emil.ernerfeldt@gmail.com>"]
 edition = "2024"
@@ -22,6 +22,7 @@ eframe = { version = "0.33.0", default-features = false, features = [
 	"wayland",       # To support Linux (and CI)
 	"x11",           # To support older Linux distributions (restores one of the default features)
 ] }
+catppuccin-egui = { version = "5.7.0", default-features = false, features = ["egui33"] }
 
 log = "0.4.27"
 env_logger = "0.11.8"

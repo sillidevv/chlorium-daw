@@ -1,113 +1,167 @@
+use crate::components::about_chlorium::AboutChlorium;
+use crate::components::tracker_channel::TrackerChannel;
+use crate::traits::view::View;
+
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
-#[derive(serde::Deserialize, serde::Serialize)]
-#[serde(default)] // if we add new fields, give them default values when deserializing old state
-pub struct TemplateApp {
-    // Example stuff:
-    label: String,
+///#[derive(serde::Deserialize, serde::Serialize)]
+//#[serde(default)] // if we add new fields, give them default values when deserializing old state
+pub struct ChlorideApp {
+	// Example stuff:
+	label: String,
 
-    #[serde(skip)] // This how you opt-out of serialization of a field
-    value: f32,
+	//#[serde(skip)] // This how you opt-out of serialization of a field
+	value: f32,
+	collapsed: bool,
+
+	// Subwindows
+	about_chlorium: AboutChlorium
 }
 
-impl Default for TemplateApp {
-    fn default() -> Self {
-        Self {
-            // Example stuff:
-            label: "Hello World!".to_owned(),
-            value: 2.7,
-        }
-    }
+impl Default for ChlorideApp {
+	fn default() -> Self {
+		Self {
+			// Example stuff:
+			label: "Hello World!".to_owned(),
+			value: 2.7,
+			collapsed: false,
+
+			// Subwindows
+			about_chlorium: AboutChlorium::new(),
+		}
+	}
 }
 
-impl TemplateApp {
-    /// Called once before the first frame.
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
-        // This is also where you can customize the look and feel of egui using
-        // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
+impl ChlorideApp {
+	/// Called once before the first frame.
+	pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+		// This is also where you can customize the look and feel of egui using
+		// `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
 
-        // Load previous app state (if any).
-        // if let Some(storage) = cc.storage {
-        // 	eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default()
-        // } else {
-        // 	Self::default()
-        // }
+		// Load previous app state (if any).
+		// if let Some(storage) = cc.storage {
+		// 	eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default()
+		// } else {
+		// 	Self::default()
+		// }
 
-        // ^^ Removed for simplication.
-        //
-        //    Uncomment the block along with the fn save block
-        //    inside the impl eframe::App for TemplateApp if you want persistence.
-        //
-        //    Make sure to also uncomment the "persistence" feature of eframe in Cargo.toml
+		// ^^ Removed for simplication.
+		//
+		//    Uncomment the block along with the fn save block
+		//    inside the impl eframe::App for TemplateApp if you want persistence.
+		//
+		//    Make sure to also uncomment the "persistence" feature of eframe in Cargo.toml
 
-        Self::default() // <- Remove this if you enable persistence
-    }
+		Self::default() // <- Remove this if you enable persistence
+	}
 }
 
-impl eframe::App for TemplateApp {
-    // Save state before shutdown.
-    // fn save(&mut self, storage: &mut dyn eframe::Storage) {
-    // 	eframe::set_value(storage, eframe::APP_KEY, self);
-    // }
+impl eframe::App for ChlorideApp {
+	// Save state before shutdown.
+	// fn save(&mut self, storage: &mut dyn eframe::Storage) {
+	// 	eframe::set_value(storage, eframe::APP_KEY, self);
+	// }
 
-    // ^^ Removed for simplication.
-    //
-    //    Uncomment the block along with the commented code in fn new if you want persistence
-    //    Make sure to also uncomment the "persistence" feature of eframe in Cargo.toml
+	// ^^ Removed for simplication.
+	//
+	//    Uncomment the block along with the commented code in fn new if you want persistence
+	//    Make sure to also uncomment the "persistence" feature of eframe in Cargo.toml
 
-    /// Called each frame.
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        // Put your widgets into a `SidePanel`, `TopBottomPanel`, `CentralPanel`, `Window` or `Area`.
-        // For inspiration and more examples, go to https://emilk.github.io/egui
+	/// Called each frame.
+	fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+		// --- Top bar ---------------------------------------------------
+		egui::TopBottomPanel::top("top_bar")
+			//.exact_height(40.0)
+			.show(ctx, |ui| {
+				ui.horizontal(|ui| {
+					ui.menu_button("File", |ui| {
+						if ui.button("hello").clicked() {
+							println!("owo")
+						}
 
-        egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
-            // The top panel is often a good place for a menu bar:
-            egui::MenuBar::new().ui(ui, |ui| {
-                ui.menu_button("File", |ui| {
-                    if ui.button("Quit").clicked() {
-                        ctx.send_viewport_cmd(egui::ViewportCommand::Close);
-                    }
-                });
+						if ui.button("Quit").clicked() {
+							std::process::exit(0);
+						}
 
-                ui.add_space(16.0);
-                egui::widgets::global_theme_preference_buttons(ui);
-            });
-        });
+						ui.separator();
 
-        egui::CentralPanel::default().show(ctx, |ui| {
-            // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("eframe template");
+						if ui.button("About chlorium").clicked() {
+							self.about_chlorium.toggle();
+						}
+					});
+					ui.menu_button("Edit", |ui| { });
+					ui.separator();
+					if ui.button("▶ Play").clicked() {  }
+					if ui.button("■ Stop").clicked() {  }
 
-            ui.horizontal(|ui| {
-                ui.label("Write something:");
-                ui.text_edit_singleline(&mut self.label);
-            });
+					ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+						ui.label("+ CHLORIUM +");
+					});
+				});
+			});
 
-            ui.add(egui::Slider::new(&mut self.value, 0.0..=10.0).text("value"));
+		// --- Side bar ---------------------------------------------------
+		egui::SidePanel::left("sidebar")
+			.resizable(true)
+			.default_width(200.0)
+			.show(ctx, |ui| {
+				ui.heading("Left panel");
 
-            if ui.button("Increment").clicked() {
-                self.value += 1.0;
-            }
+				// if self.collapsed {
+				// 	if ui.button("▶").clicked() {
+				// 		self.collapsed = false;
+				// 	}
+				// } else {
+				// 	if ui.button("◀ Collapse").clicked() {
+				// 		self.collapsed = true;
+				// 	}
+				// 	ui.separator();
+				// 	ui.label("Panel content here");
+				// }
+			});
 
-            ui.separator();
+		// --- Bottom bar, status panel -------------------------------------
+		egui::TopBottomPanel::bottom("status_bar")
+			.exact_height(24.0)
+			.show(ctx, |ui| {
+				ui.label("BPM: 125  |  Row: 12/64  |  Pattern: 03");
+			});
 
-            ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
-                powered_by_egui_and_eframe(ui);
-                egui::warn_if_debug_build(ui);
-            });
-        });
-    }
+		// Right panel — maybe effect/mixer view
+		egui::SidePanel::right("mixer")
+			.resizable(true)
+			.default_width(180.0)
+			.show(ctx, |ui| {
+				ui.heading("Right panel");
+			});
+
+		// Center — the actual pattern editor, fills remaining space
+		egui::CentralPanel::default().show(ctx, |ui| {
+			ui.centered_and_justified(|ui| {
+				ui.horizontal(|ui| {
+					TrackerChannel::new("Track 1".to_string()).ui(ui);
+					TrackerChannel::new("Track 2".to_string()).ui(ui);
+					TrackerChannel::new("Track 3".to_string()).ui(ui);
+					TrackerChannel::new("Track 4".to_string()).ui(ui);
+					TrackerChannel::new("Track 5".to_string()).ui(ui);
+				})
+			})
+		});
+
+		// Subwindows and shit go here
+		self.about_chlorium.draw(ctx);
+	}
 }
 
 fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
-    ui.horizontal(|ui| {
-        ui.spacing_mut().item_spacing.x = 0.0;
-        ui.label("Powered by ");
-        ui.hyperlink_to("egui", "https://github.com/emilk/egui");
-        ui.label(" and ");
-        ui.hyperlink_to(
-            "eframe",
-            "https://github.com/emilk/egui/tree/master/crates/eframe",
-        );
-        ui.label(".");
-    });
+	ui.horizontal(|ui| {
+		ui.spacing_mut().item_spacing.x = 0.0;
+		ui.label("Powered by ");
+		ui.hyperlink_to("egui", "https://github.com/emilk/egui");
+		ui.label(" and ");
+		ui.hyperlink_to(
+			"eframe",
+			"https://github.com/emilk/egui/tree/master/crates/eframe",
+		);
+		ui.label(".");
+	});
 }
