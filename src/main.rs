@@ -26,8 +26,7 @@ fn main() -> eframe::Result {
 		"Chlorium",
 		native_options,
 		Box::new(|cc| {
-			let font_bytes: &'static [u8] =
-				include_bytes!("../assets/JetBrainsMono-Regular.ttf");
+			let font_bytes: &'static [u8] = include_bytes!("../assets/JetBrainsMono-Regular.ttf");
 			chlorium_theme::install_chlorium_theme(&cc.egui_ctx, font_bytes);
 			Ok(Box::new(app::ChlorideApp::new(cc)))
 		}),

@@ -14,7 +14,7 @@ pub struct ChlorideApp {
 	collapsed: bool,
 
 	// Subwindows
-	about_chlorium: AboutChlorium
+	about_chlorium: AboutChlorium,
 }
 
 impl Default for ChlorideApp {
@@ -88,10 +88,10 @@ impl eframe::App for ChlorideApp {
 							self.about_chlorium.toggle();
 						}
 					});
-					ui.menu_button("Edit", |ui| { });
+					ui.menu_button("Edit", |ui| {});
 					ui.separator();
-					if ui.button("▶ Play").clicked() {  }
-					if ui.button("■ Stop").clicked() {  }
+					if ui.button("▶ Play").clicked() {}
+					if ui.button("■ Stop").clicked() {}
 
 					ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
 						ui.label("+ CHLORIUM +");
@@ -99,8 +99,8 @@ impl eframe::App for ChlorideApp {
 				});
 			});
 
-		// --- Side bar ---------------------------------------------------
-		egui::SidePanel::left("sidebar")
+		// --- Left panel ---------------------------------------------------
+		egui::SidePanel::left("left_panel")
 			.resizable(true)
 			.default_width(200.0)
 			.show(ctx, |ui| {
@@ -126,15 +126,15 @@ impl eframe::App for ChlorideApp {
 				ui.label("BPM: 125  |  Row: 12/64  |  Pattern: 03");
 			});
 
-		// Right panel — maybe effect/mixer view
-		egui::SidePanel::right("mixer")
+		// --- Right panel --------------------------------------------------
+		egui::SidePanel::right("right_panel")
 			.resizable(true)
 			.default_width(180.0)
 			.show(ctx, |ui| {
 				ui.heading("Right panel");
 			});
 
-		// Center — the actual pattern editor, fills remaining space
+		// --- Center -------------------------------------------------------
 		egui::CentralPanel::default().show(ctx, |ui| {
 			ui.centered_and_justified(|ui| {
 				ui.horizontal(|ui| {
