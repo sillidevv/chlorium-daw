@@ -6,9 +6,7 @@ pub struct AboutChlorium {
 
 impl AboutChlorium {
 	pub fn new() -> Self {
-		Self {
-			show: false,
-		}
+		Self { show: false }
 	}
 
 	pub fn toggle(&mut self) {
@@ -26,7 +24,7 @@ impl AboutChlorium {
 
 		ui.label(
 			"Chlorium is a very simple tracker-ish DAW (Digital Audio Workstation) \
-				built fully in rust with the help of egui."
+				built fully in rust with the help of egui.",
 		);
 
 		ui.add_space(LABEL_SPACING);
@@ -35,15 +33,14 @@ impl AboutChlorium {
 			"Since I started using the 'Renoise' tracker, \
 			I've been really interested in trackers, and was inspired to try to \
 			build my own. Trackers being (in concept) relatively simple than other \
-			types of DAWs, I decided to start making Chlorium."
-
+			types of DAWs, I decided to start making Chlorium.",
 		);
 
 		ui.add_space(LABEL_SPACING);
 
 		ui.label(
 			"Don't expect anything good or serious... this started mostly out of \
-			boredom."
+			boredom.",
 		);
 
 		ui.add_space(LABEL_SPACING);
