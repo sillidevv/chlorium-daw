@@ -10,3 +10,5 @@ target_ra
 
 # https://github.com/lycheeverse/lychee
 .lycheecache
+
+color_dec_generator/
