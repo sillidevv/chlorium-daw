@@ -30,12 +30,16 @@ slightest
 
 ### TODO
 **Ordererd after priority. This is mostly for myself.*
-- Readme
+- Readme.
+
+- Change chlorium_theme to fully use colors from 
+  chlorium_theme::color_palette and remove all the Catppuccin 
+  Mocha artifacts
 
 - Make a `Window` trait with `draw(ctx: &egui::Context)`
   and `draw_content(ui: &mut egui::Ui)`
 
-- Finish the "About Chlorium" window
+- Finish the "About Chlorium" window.
 
 - Remake tracker channel system into a more grid based type of 
   a tracker interface
