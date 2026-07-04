@@ -1,7 +1,10 @@
+use crate::ui_utils::hyperlinks;
+use crate::ui_utils::hyperlinks::{standard_hyperlink, HyperlinkType};
+
 const LABEL_SPACING: f32 = 12.0;
 
 pub struct AboutChlorium {
-	pub(crate) show: bool,
+	pub show: bool,
 }
 
 impl AboutChlorium {
@@ -47,26 +50,66 @@ impl AboutChlorium {
 
 		ui.heading("Links");
 		Self::links(ui);
+
+		ui.add_space(LABEL_SPACING);
+
+		egui::CollapsingHeader::new("Licensing")
+			.default_open(false)
+			.show(ui, |ui| {
+				Self::licensing(ui);
+			});
 	}
 
 	fn links(ui: &mut egui::Ui) {
 		use egui::special_emojis::GITHUB;
 
-		ui.hyperlink_to(
-			format!("Github - {GITHUB} github.com/sillidevv/chlorium-daw"),
+		standard_hyperlink(
+			ui,
+			HyperlinkType::GitHub,
 			"https://github.com/sillidevv/chlorium-daw",
+			None, //Some("(link)")
 		);
 	}
 
+	fn licensing(ui: &mut egui::Ui) {
+		use egui::special_emojis::GITHUB;
+
+		ui.horizontal_wrapped(|ui| {
+			ui.label(
+				"Chlorium is licensed under either of\n\
+				\x20* Apache License, Version 2.0 -",
+			);
+
+			standard_hyperlink(
+				ui,
+				HyperlinkType::GitHub,
+				"https://github.com/sillidevv/chlorium-daw/blob/main/LICENSE-APACHE",
+				Some("(link)"),
+			);
+
+			ui.label("\n\x20* MIT License -");
+
+			standard_hyperlink(
+				ui,
+				HyperlinkType::GitHub,
+				"https://github.com/sillidevv/chlorium-daw/blob/main/LICENSE-MIT",
+				Some("(link)"),
+			);
+
+			ui.label("\nat your option.");
+		});
+	}
+
 	pub fn draw(&mut self, ctx: &egui::Context) {
-		if !self.show {
-			return;
-		}
+		let mut is_open = self.show;
 
 		egui::Window::new("About Chlorium")
 			.default_width(600.0)
+			.open(&mut is_open)
 			.show(ctx, |ui| {
 				self.draw_content(ui);
 			});
+
+		self.show = is_open;
 	}
 }
