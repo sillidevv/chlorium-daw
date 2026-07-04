@@ -6,6 +6,7 @@ mod chlorium_theme;
 mod components;
 mod traits;
 mod utils;
+mod ui_utils;
 
 fn main() -> eframe::Result {
 	env_logger::init(); // Log to stderr if you run with RUST_LOG=debug
@@ -28,7 +29,7 @@ fn main() -> eframe::Result {
 		Box::new(|cc| {
 			let font_bytes: &'static [u8] = include_bytes!("../assets/JetBrainsMono-Regular.ttf");
 			chlorium_theme::install_chlorium_theme(&cc.egui_ctx, font_bytes);
-			Ok(Box::new(app::ChlorideApp::new(cc)))
+			Ok(Box::new(app::ChloriumApp::new(cc)))
 		}),
 	)
 }
