@@ -1,0 +1,18 @@
+//! Contains the [`Show`] struct.
+
+use egui::Id;
+
+/// Similar to [`View`], but instead represents anything that takes
+/// the egui context instead of the ui
+pub trait Show {
+	fn id(&self) -> impl Into<Id>;
+
+	/// Shows the panel onto an egui context
+	fn show(&mut self, ctx: &mut egui::Context, panel_type: PanelType) {
+		match panel_type {
+		}
+	}
+
+	/// D the panel onto an egui context
+	fn ui(&mut self, ctx: &mut egui::Ui);
+}
