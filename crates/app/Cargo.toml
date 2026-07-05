@@ -1,0 +1,19 @@
+[package]
+name = "chlorium-app"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+egui = { workspace = true }
+eframe = { workspace = true }
+catppuccin-egui = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+serde = { workspace = true }
+
+discord-rpc-client = "^0.4"
+
+[lints]
+workspace = true
