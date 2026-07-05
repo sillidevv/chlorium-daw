@@ -139,9 +139,15 @@ impl eframe::App for ChloriumApp {
 		// --- Right panel --------------------------------------------------
 		egui::SidePanel::right("right_panel")
 			.resizable(true)
-			.default_width(180.0)
+			.exact_width(150.0)
 			.show(ctx, |ui| {
-				ui.heading("Right panel");
+				ui.with_layout(egui::Layout::left_to_right(egui::Align::TOP), |ui| {
+					ui.heading("Assets");
+
+					if ui.button("Import").clicked() {
+
+					};
+				});
 			});
 
 		// --- Center -------------------------------------------------------
