@@ -8,10 +8,7 @@ pub trait Show {
 	fn id(&self) -> impl Into<Id>;
 
 	/// Shows the panel onto an egui context
-	fn show(&mut self, ctx: &mut egui::Context, panel_type: PanelType) {
-		match panel_type {
-		}
-	}
+	fn show(&mut self, ctx: &mut egui::Context);
 
 	/// Draw's the panels inner ui
 	fn ui(&mut self, ctx: &mut egui::Ui);
