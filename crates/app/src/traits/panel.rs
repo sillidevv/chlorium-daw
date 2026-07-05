@@ -13,6 +13,6 @@ pub trait Show {
 		}
 	}
 
-	/// D the panel onto an egui context
+	/// Draw's the panels inner ui
 	fn ui(&mut self, ctx: &mut egui::Ui);
 }
