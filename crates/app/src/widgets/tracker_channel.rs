@@ -31,6 +31,7 @@ impl TrackerChannel {
 	fn draw_canvas(ui: &mut egui::Ui) {
 		egui::Frame::canvas(ui.style())
 			.fill(color_palette::GRAY_BG_1)
+			.outer_margin(Margin::ZERO)
 			.show(ui, |ui| {
 				let desired_size = ui.available_size();
 
@@ -44,7 +45,7 @@ impl TrackerChannel {
 			.show(ui, |ui| {
 				ui.vertical_centered(|ui| Self::draw_canvas(ui));
 
-				ui.add(egui::DragValue::new(&mut self.test_value));
+				// ui.add(egui::DragValue::new(&mut self.test_value));
 			});
 	}
 }
@@ -55,8 +56,9 @@ impl View for TrackerChannel {
 			egui::vec2(TRACK_WIDTH, ui.available_height()),
 			egui::Layout::top_down(egui::Align::LEFT),
 			|ui| {
-				egui::Frame::default()
+				egui::Frame::new()
 					.fill(color_palette::GRAY_BG_2)
+					.corner_radius(0)
 					.show(ui, |ui| {
 						ui.vertical(|ui| {
 							self.draw_header(ui);

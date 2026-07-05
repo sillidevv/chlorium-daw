@@ -3,8 +3,6 @@ use crate::traits::view::View;
 use crate::widgets::about_chlorium::AboutChlorium;
 use crate::widgets::tracker_channel::TrackerChannel;
 use eframe::glow::Context;
-use crate::widgets::about_chlorium::AboutChlorium;
-use crate::discord_rpc::ChloriumDRPC;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 ///#[derive(serde::Deserialize, serde::Serialize)]
@@ -135,7 +133,7 @@ impl eframe::App for ChloriumApp {
 		egui::TopBottomPanel::bottom("status_bar")
 			.exact_height(24.0)
 			.show(ctx, |ui| {
-				ui.label("Row: 1/64  |  Pattern: 01");
+				ui.label("Row: 1/64  |  Pattern: 001");
 			});
 
 		// --- Right panel --------------------------------------------------
@@ -146,9 +144,7 @@ impl eframe::App for ChloriumApp {
 				ui.with_layout(egui::Layout::left_to_right(egui::Align::TOP), |ui| {
 					ui.heading("Assets");
 
-					if ui.button("Import").clicked() {
-
-					};
+					if ui.button("Import").clicked() {};
 				});
 			});
 
@@ -235,8 +231,7 @@ impl eframe::App for ChloriumApp {
 		self.about_chlorium.draw(ctx);
 	}
 
-	fn on_exit(&mut self, _gl: Option<&Context>) {
-	}
+	fn on_exit(&mut self, _gl: Option<&Context>) {}
 }
 
 fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
