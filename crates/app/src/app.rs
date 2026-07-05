@@ -150,16 +150,80 @@ impl eframe::App for ChloriumApp {
 
 		// --- Center -------------------------------------------------------
 		egui::CentralPanel::default().show(ctx, |ui| {
-			ui.centered_and_justified(|ui| {
-				// ui.horizontal(|ui| {
-				// 	// TrackerChannel::new("Track 1".to_string()).ui(ui);
-				// 	// TrackerChannel::new("Track 2".to_string()).ui(ui);
-				// 	// TrackerChannel::new("Track 3".to_string()).ui(ui);
-				// 	// TrackerChannel::new("Track 4".to_string()).ui(ui);
-				// 	// TrackerChannel::new("Track 5".to_string()).ui(ui);
-				// });
+			egui::TopBottomPanel::top("maybe_mixer")
+				.resizable(true)
+				.default_height(120.0)
+				.show_inside(ui, |ui| {
+					ui.centered_and_justified(|ui| {
+						ui.label("[PLACEHOLDER, MAYBE MIXER]");
+					})
+				});
 
-				ui.label("[TRACKER GRID GOES HERE]");
+			egui::SidePanel::right("sequence")
+				.default_width(24.0)
+				.show_inside(ui, |ui| {
+					ui.vertical(|ui| {
+						// once again sample data, not actual stuff
+						ui.add(
+							egui::DragValue::new(&mut 1)
+								.clamp_range(0..=999)
+								.custom_formatter(|n, _| format!("{n:03}"))
+						);
+
+						ui.add(
+							egui::DragValue::new(&mut 2)
+								.clamp_range(0..=999)
+								.custom_formatter(|n, _| format!("{n:03}"))
+						);
+
+						ui.add(
+							egui::DragValue::new(&mut 3)
+								.clamp_range(0..=999)
+								.custom_formatter(|n, _| format!("{n:03}"))
+						);
+
+						ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
+							ui.add(
+								egui::DragValue::new(&mut 1)
+									.clamp_range(0..=999)
+									.custom_formatter(|n, _| format!("{n:03}"))
+							);
+
+							ui.label(egui::RichText::new("Active").size(10.0));
+
+							ui.separator();
+
+							ui.with_layout(egui::Layout::left_to_right(egui::Align::BOTTOM), |ui| {
+								if ui.button("+").clicked() {};
+								if ui.button("-").clicked() {};
+							})
+						})
+					})
+				});
+
+			egui::TopBottomPanel::top("channel_tools")
+				.default_height(24.0)
+				.show_inside(ui, |ui| {
+					if ui.button("+").clicked() {};
+				});
+
+			ui.add_space(10.0);
+
+			ui.centered_and_justified(|ui| {
+				ui.scope(|ui| {
+					//ui.spacing_mut().item_spacing.x = 0.0;
+					ui.horizontal(|ui| {
+						TrackerChannel::new("Track 1".to_string()).ui(ui);
+						TrackerChannel::new("Track 2".to_string()).ui(ui);
+						TrackerChannel::new("Track 3".to_string()).ui(ui);
+						TrackerChannel::new("Track 4".to_string()).ui(ui);
+						TrackerChannel::new("Track 5".to_string()).ui(ui);
+					});
+
+
+				});
+
+				//ui.label("[TRACKER GRID GOES HERE]");
 			})
 		});
 
