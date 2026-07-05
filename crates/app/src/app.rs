@@ -1,5 +1,7 @@
+use eframe::glow::Context;
 use crate::components::about_chlorium::AboutChlorium;
 use crate::components::tracker_channel::TrackerChannel;
+use crate::discord_rpc::ChloriumDRPC;
 use crate::traits::view::View;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
@@ -15,6 +17,8 @@ pub struct ChloriumApp {
 
 	// Subwindows
 	about_chlorium: AboutChlorium,
+
+	pub discord_rpc: ChloriumDRPC,
 }
 
 impl Default for ChloriumApp {
@@ -27,6 +31,8 @@ impl Default for ChloriumApp {
 
 			// Subwindows
 			about_chlorium: AboutChlorium::new(),
+
+			discord_rpc: ChloriumDRPC::new(),
 		}
 	}
 }
@@ -51,7 +57,11 @@ impl ChloriumApp {
 		//
 		//    Make sure to also uncomment the "persistence" feature of eframe in Cargo.toml
 
-		Self::default() // <- Remove this if you enable persistence
+		let mut app = Self::default(); // <- Remove this if you enable persistenc
+
+		app.discord_rpc.initialize_drpc();
+
+		app
 	}
 }
 
@@ -138,17 +148,20 @@ impl eframe::App for ChloriumApp {
 		egui::CentralPanel::default().show(ctx, |ui| {
 			ui.centered_and_justified(|ui| {
 				ui.horizontal(|ui| {
-					TrackerChannel::new("Track 1".to_string()).ui(ui);
-					TrackerChannel::new("Track 2".to_string()).ui(ui);
-					TrackerChannel::new("Track 3".to_string()).ui(ui);
-					TrackerChannel::new("Track 4".to_string()).ui(ui);
-					TrackerChannel::new("Track 5".to_string()).ui(ui);
+					// TrackerChannel::new("Track 1".to_string()).ui(ui);
+					// TrackerChannel::new("Track 2".to_string()).ui(ui);
+					// TrackerChannel::new("Track 3".to_string()).ui(ui);
+					// TrackerChannel::new("Track 4".to_string()).ui(ui);
+					// TrackerChannel::new("Track 5".to_string()).ui(ui);
 				})
 			})
 		});
 
 		// Subwindows and shit go here
 		self.about_chlorium.draw(ctx);
+	}
+
+	fn on_exit(&mut self, _gl: Option<&Context>) {
 	}
 }
 
