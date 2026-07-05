@@ -1,8 +1,6 @@
 use eframe::glow::Context;
 use crate::widgets::about_chlorium::AboutChlorium;
-use crate::widgets::tracker_channel::TrackerChannel;
 use crate::discord_rpc::ChloriumDRPC;
-use crate::traits::view::View;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 ///#[derive(serde::Deserialize, serde::Serialize)]

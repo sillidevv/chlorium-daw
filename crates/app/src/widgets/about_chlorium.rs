@@ -1,4 +1,3 @@
-use crate::ui_utils::hyperlinks;
 use crate::ui_utils::hyperlinks::{standard_hyperlink, HyperlinkType};
 
 const LABEL_SPACING: f32 = 12.0;
@@ -61,8 +60,6 @@ impl AboutChlorium {
 	}
 
 	fn links(ui: &mut egui::Ui) {
-		use egui::special_emojis::GITHUB;
-
 		standard_hyperlink(
 			ui,
 			HyperlinkType::GitHub,
@@ -72,8 +69,6 @@ impl AboutChlorium {
 	}
 
 	fn licensing(ui: &mut egui::Ui) {
-		use egui::special_emojis::GITHUB;
-
 		ui.horizontal_wrapped(|ui| {
 			ui.label(
 				"Chlorium is licensed under either of\n\
