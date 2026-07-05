@@ -133,7 +133,7 @@ impl eframe::App for ChloriumApp {
 		egui::TopBottomPanel::bottom("status_bar")
 			.exact_height(24.0)
 			.show(ctx, |ui| {
-				ui.label("BPM: 125  |  Row: 12/64  |  Pattern: 03");
+				ui.label("Row: 1/64  |  Pattern: 01");
 			});
 
 		// --- Right panel --------------------------------------------------
@@ -147,13 +147,15 @@ impl eframe::App for ChloriumApp {
 		// --- Center -------------------------------------------------------
 		egui::CentralPanel::default().show(ctx, |ui| {
 			ui.centered_and_justified(|ui| {
-				ui.horizontal(|ui| {
-					// TrackerChannel::new("Track 1".to_string()).ui(ui);
-					// TrackerChannel::new("Track 2".to_string()).ui(ui);
-					// TrackerChannel::new("Track 3".to_string()).ui(ui);
-					// TrackerChannel::new("Track 4".to_string()).ui(ui);
-					// TrackerChannel::new("Track 5".to_string()).ui(ui);
-				})
+				// ui.horizontal(|ui| {
+				// 	// TrackerChannel::new("Track 1".to_string()).ui(ui);
+				// 	// TrackerChannel::new("Track 2".to_string()).ui(ui);
+				// 	// TrackerChannel::new("Track 3".to_string()).ui(ui);
+				// 	// TrackerChannel::new("Track 4".to_string()).ui(ui);
+				// 	// TrackerChannel::new("Track 5".to_string()).ui(ui);
+				// });
+
+				ui.label("[TRACKER GRID GOES HERE]");
 			})
 		});
 
