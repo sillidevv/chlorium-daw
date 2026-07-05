@@ -35,8 +35,8 @@ impl AboutChlorium {
 		ui.label(
 			"Since I started using the 'Renoise' tracker, \
 			I've been really interested in trackers, and was inspired to try to \
-			build my own. Trackers being (in concept) relatively simple than other \
-			types of DAWs, I decided to start making Chlorium.",
+			build my own. Trackers being (in concept) relatively simpler to make \
+			than other types of DAWs, I decided to start making Chlorium.",
 		);
 
 		ui.add_space(LABEL_SPACING);
