@@ -5,3 +5,4 @@ pub mod traits;
 pub mod utils;
 pub mod components;
 pub mod discord_rpc;
+pub mod panels;
