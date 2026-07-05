@@ -1,3 +1,7 @@
+use crate::discord_rpc::ChloriumDRPC;
+use crate::traits::view::View;
+use crate::widgets::about_chlorium::AboutChlorium;
+use crate::widgets::tracker_channel::TrackerChannel;
 use eframe::glow::Context;
 use crate::widgets::about_chlorium::AboutChlorium;
 use crate::discord_rpc::ChloriumDRPC;
