@@ -352,6 +352,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "chlorium-core"
+version = "0.1.0"
+
+[[package]]
 name = "chlorium-main"
 version = "0.1.0"
 dependencies = [
